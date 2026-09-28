@@ -1,0 +1,4 @@
+{
+  "summary": "u-blox NEO-6M GPS driver utilizing pyserial and pynmea2 for NMEA sentence parsing, geotagging, and simulation mock.",
+  "updatedAt": "2026-09-27T13:15:55.840449200Z"
+}

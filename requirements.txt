@@ -1,0 +1,18 @@
+# Core Runtime & Computer Vision
+opencv-python>=4.8.0
+ultralytics>=8.0.0
+numpy>=1.24.0
+
+# GPS & Serial Interface
+pyserial>=3.5
+pynmea2>=1.19.0
+
+# LoRa & Meshtastic Mesh Interface
+meshtastic>=2.3.0
+protobuf>=4.21.0
+
+# Raspberry Pi Hardware GPIO (Raspberry Pi OS only)
+# RPi.GPIO>=0.7.1; sys_platform == 'linux'
+
+# Testing & Quality
+pytest>=7.4.0
