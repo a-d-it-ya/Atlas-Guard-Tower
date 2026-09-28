@@ -10,26 +10,26 @@ AGT runs onboard sensor fusion, class-restricted computer vision, and geo-taggin
 
 ```mermaid
 flowchart TD
-    subgraph Hardware_Node ["Atlas Guard Tower (AGT) Edge Unit"]
-        Radar["RCWL-0516 Microwave Radar"] -->|GPIO 17 Rising Edge| Engine["Sentry Fusion Engine"]
-        CamWorker["V4L2 Camera Grabber (Threaded)"] -->|Fresh Frame Stream| Vision["YOLOv8 Edge AI (Class 0 = Person)"]
-        Vision -->|Human Confirmed >= 55%| Engine
-        GPS["u-blox NEO-6M GPS"] -->|UART /dev/serial0 (pynmea2)| Engine
-        Health["System Telemetry (Battery / CPU)"] -->|Periodic Sample| Telemetry["Telemetry Worker"]
+    subgraph Hardware_Node ["Atlas Guard Tower Edge Unit"]
+        Radar["RCWL-0516 Microwave Radar"] -->|"GPIO 17 Rising Edge"| Engine["Sentry Fusion Engine"]
+        CamWorker["V4L2 Camera Grabber"] -->|"Fresh Frame Stream"| Vision["YOLOv8 Edge AI - Class 0 Person"]
+        Vision -->|"Human Confirmed &ge; 55%"| Engine
+        GPS["u-blox NEO-6M GPS"] -->|"UART /dev/serial0 via pynmea2"| Engine
+        Health["System Telemetry - Battery/CPU"] -->|"Periodic Sample"| Telemetry["Telemetry Worker"]
 
-        Engine -->|Stage 4: Packaged CDM Alert| CDM["HiveOS Common Data Model (JSON / Binary)"]
-        Telemetry -->|Periodic Beacon| CDM
-        CDM -->|Protobuf RPC via USB-CDC| Heltec["Heltec LoRa32 V3 (Meshtastic Firmware)"]
+        Engine -->|"Stage 4: Packaged CDM Alert"| CDM["HiveOS Common Data Model"]
+        Telemetry -->|"Periodic Beacon"| CDM
+        CDM -->|"Protobuf RPC via USB-CDC"| Heltec["Heltec LoRa32 V3 - Meshtastic"]
     end
 
-    subgraph Mesh_Network ["LoRa Multi-Hop Mesh (IN_865 / 868 MHz)"]
-        Heltec -->|RF Broadcast| Sentry2["Neighboring AGT Sentry Node"]
-        Sentry2 -->|Relayed RF| Gateway["Base Station LoRa Gateway"]
+    subgraph Mesh_Network ["LoRa Multi-Hop Mesh - IN_865 / 868 MHz"]
+        Heltec -->|"RF Broadcast"| Sentry2["Neighboring AGT Sentry Node"]
+        Sentry2 -->|"Relayed RF"| Gateway["Base Station LoRa Gateway"]
     end
 
-    subgraph C2_Platform ["HiveOS Command & Control Platform"]
-        Gateway --> Ingestion["CDM Ingestion & World Model"]
-        Ingestion --> Operator["Operator C2 UI (Human-in-the-Loop Response)"]
+    subgraph C2_Platform ["HiveOS Command and Control Platform"]
+        Gateway --> Ingestion["CDM Ingestion and World Model"]
+        Ingestion --> Operator["Operator C2 UI - Human in the Loop"]
     end
 ```
 
